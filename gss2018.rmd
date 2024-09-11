@@ -45,23 +45,54 @@ OWNGUN ~ CAPPUN both are categorical, thus uses cat~cat
 
 
 
+
 #### Graphical Descriptive Results
+
+```{r}
+barchartGC(~OWNGUN + CAPPUN,data=GSSdata)
+barchartGC(~OWNGUN + CAPPUN,data=GSSdata, type="percent")
+
+```
+
+This barchart shows that gun owners are more likely to favor capital punishment
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
 #### Numerical Descriptive Results
 
+```{r}
+table1 <- xtabs(~OWNGUN + CAPPUN, data=GSSdata)
+rowPerc(table1)
+colPerc(table1)
+```
+This table shows the percentage of gunowners that either oppose or favor capital punishment. It looks like gun ownershipt is related to favoring capital punishment
+
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
 ### Inferential Results
 
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+
+
+```
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+
+we reject the null hypothesis because the p-value is less that 0.05. There is a relation between gun ownership and favoring capital punishment
 
 #  Question 2
 
 <!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?!-->
 
 Is there a difference in years of education (EDUC) between the those who did or did not vote in 2012 (VOTE12)?
+
+Question: Is there a relation between those that are educated and if they did or didn't vote.
+$H_O$: There is not relation between education and if you vote or not
+$H_A$ : The is a relation between education and if you vote or not
+
+Years of education is a number. Level of education is a category. Thus we use num ~ cat
 
 ## Methods
 
@@ -75,14 +106,33 @@ Is there a difference in years of education (EDUC) between the those who did or 
 
 #### Graphical Descriptive Results
 
+
+```{r}
+boxplot(EDUC~VOTE12,data=GSSdata)
+```
+
+People who voted in 2012 seem to have more education than those who did not vote.
+
+
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
 #### Numerical Descriptive Results
 
+
+```{r}
+favstats(EDUC~VOTE12,data=GSSdata)
+```
+
+The table shows the average level of education of 15.72 - the mean.People who didn't vote had an average education of 13.42 years. Looks like people with higher education are more likely to vote.
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
 ### Inferential Results
 
+```{r}
+t.test(EDUC~ VOTE12,data=GSSdata)
+```
+Based on the t-test we reject the null. 
+There is a difference between the number of years of education and voting. It seems the higher the education, the more likly you are to have voted.
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
 
 #  Question 3
